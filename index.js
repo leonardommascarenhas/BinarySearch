@@ -25,6 +25,19 @@ class Tree {
     let n = sortedArray.length;
     this.root = this.sortedArrayToBST(sortedArray, 0, n - 1);
   }
+  insert(key) {
+    this.root = this.insertRec(this.root, key);
+  }
+  insertRec(root, key) {
+    if (root == null) return (root = new Node(key));
+    if (key < root.data) {
+      root.left = this.insertRec(root.left, key);
+    }
+    if (key > root.data) {
+      root.right = this.insertRec(root.right, key);
+    }
+    return root;
+  }
   prettyPrint = (node, prefix = "", isLeft = true) => {
     if (node.right !== null) {
       this.prettyPrint(node.right, `${prefix}${isLeft ? "│   " : "    "}`, false);
@@ -40,4 +53,5 @@ const array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
 
 let a = new Tree();
 a.buildTree(array);
+a.insert(88);
 a.prettyPrint(a.root);
